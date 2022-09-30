@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Context Menu</title>
+
+    <script type='module'>
+        import { TableauEventType, ApiMenuType } from "https://devplat.tableautest.com/javascripts/api/tableau.embedding.3.4.0.js";
+
+        let viz, worksheet, contextMenuId;
+
+        function initializeViz() {
+            const url = "https://devplat.tableautest.com/views/RegionalSampleWorkbook/College";
+            viz = document.getElementById("tableauViz");
+            viz.addEventListener(TableauEventType.FirstInteractive, handleFirstInteractive);
+            viz.addEventListener(TableauEventType.CustomMarkContextMenuEvent, handleCustomMarkEvent);
+            viz.hideTabs = true;
+            viz.hideToolbar = true;
+            viz.src = url;
+        }
+
+        function handleFirstInteractive(e) {
+            worksheet = viz.workbook.activeSheet;
+            const menuItemNames = ["Item 0", "Item 1", "Item 2"];
+            for (name of menuItemNames) {
+                addContextMenuItem(name);
+            }
+
+            const menuName = "Custom Context Menu Name";
+            const menuDescription = "A sample custom context menu";
+            renameContextMenu(menuName, menuDescription);
+        }
+
+        function handleCustomMarkEvent(customMarkContextMenuEvent) {
+            console.log("Reached CUSTOM_MARK_CONTEXT_MENU");
+            contextMenuId = customMarkContextMenuEvent.detail.getContextMenuId();
+            return customMarkContextMenuEvent.detail.getSelectedMarksAsync().then(displaySelectedMarks);
+        }
+
+        function displaySelectedMarks(marks) {
+            let html = "";
+
+            for (let markIndex = 0; markIndex < marks.data[0].data.length; markIndex++) {
+                let columns = marks.data[0].columns;
+                html += "<b>Mark " + markIndex + "</b>, MenuId " + contextMenuId + ":</b><ul>";
+                for (let colIndex = 0; colIndex < columns.length; colIndex++) {
+                    html += "<li><b>Field Name:</b> " + columns[colIndex].fieldName;
+                    html += "<br/><b>Value:</b> " + marks.data[0].data[markIndex][colIndex].formattedValue + "</li>";
+                }
+                html += "</ul>";
+            }
+            let infoDiv = document.getElementById('markDetails');
+            infoDiv.innerHTML = html;
+        }
+
+        async function addContextMenuItem(menuItem) {
+            const config = { displayName: menuItem };
+
+            try {
+                await worksheet.appendContextMenuAsync(ApiMenuType.Ubertip, config);
+            } catch (e) {
+                alert("An exception was thrown: " + e);
+            };
+        }
+
+        async function renameContextMenu(menuName, menuDescription) {
+            try {
+                await worksheet.renameContextMenuAsync(ApiMenuType.Ubertip, menuName, menuDescription);
+            } catch (e) {
+                alert("An exception was thrown: " + e);
+            };
+        }
+
+        document.addEventListener("DOMContentLoaded", initializeViz);
+    </script>
+</head>
+
+<body>
+    <tableau-viz id="tableauViz" width="800" height="700">
+    </tableau-viz>
+    <div id="markDetails">
+        <h3 style="background-Color:lightgray;">Display Mark Data</h3>
+    </div>
+</body>
+
+</html>
