@@ -22,8 +22,8 @@
                 };
                 const underlyingTableData = await sheet.getUnderlyingTableDataAsync(tables[0].id, options);
 
-                var tgt = document.getElementById("dataTarget");
-                tgt.innerHTML = "<h4>Underlying Data:</h4><p>" + JSON.stringify(underlyingTableData.data) + "</p>";
+                const target = document.getElementById("dataTarget");
+                target.innerHTML = `<h4>Underlying Data:</h4><p>${JSON.stringify(underlyingTableData.data)}</p>`;
             };
         }
     </script>

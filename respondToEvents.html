@@ -14,17 +14,17 @@
             let html = "";
 
             for (let markIndex = 0; markIndex < marksData.totalRowCount; markIndex++) {
-                html += "<b>Mark " + markIndex + ":</b><ul>";
+                html += `<b>Mark ${markIndex}:</b><ul>`;
 
                 for (let columnIndex = 0; columnIndex < marksData.columns.length; columnIndex++) {
-                    html += "<li><b>Field Name:</b> " + marksData.columns[columnIndex].fieldName;
-                    html += "<br/><b>Value:</b> " + marksData.data[markIndex][columnIndex].formattedValue + "</li>";
+                    html += `<li><b>Field Name:</b> ${marksData.columns[columnIndex].fieldName}`;
+                    html += `<br/><b>Value:</b> ${marksData.data[markIndex][columnIndex].formattedValue} </li>`;
                 }
 
                 html += "</ul>";
             }
 
-            var infoDiv = document.getElementById('markDetails');
+            const infoDiv = document.getElementById("markDetails");
             infoDiv.innerHTML = html;
         }
 

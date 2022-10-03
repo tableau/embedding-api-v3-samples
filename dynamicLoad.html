@@ -17,14 +17,7 @@
         let vizLen = vizList.length, vizCount = 0;
 
         function handleFirstInteractive(e) {
-            let previousButton = document.getElementById("previous");
-            previousButton.onclick = () => {
-                loadViz(-1);
-            }
-            let nextButton = document.getElementById("next");
-            nextButton.onclick = () => {
-                loadViz(1);
-            }
+            console.log(`Viz loaded: ${viz.src}`);
         }
 
         function loadViz(vizPlusMinus) {
@@ -43,6 +36,9 @@
         let viz = document.getElementById("tableauViz");
         viz.addEventListener(TableauEventType.FirstInteractive, handleFirstInteractive);
         viz.src = vizList[0];
+
+        document.getElementById("previous").onclick = () => loadViz(-1);
+        document.getElementById("next").onclick = () => loadViz(1);
     </script>
 </head>
 

@@ -12,10 +12,10 @@
             let viz = document.getElementById("tableauViz");
             let sheet = viz.workbook.activeSheet;
 
-            if (year === "") {
-                sheet.clearFilterAsync("Academic Year");
+            if (year) {
+                await sheet.applyFilterAsync("Academic Year", [year], FilterUpdateType.Replace);
             } else {
-                sheet.applyFilterAsync("Academic Year", [year], FilterUpdateType.Replace);
+                await sheet.clearFilterAsync("Academic Year");
             }
         }
 

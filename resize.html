@@ -9,8 +9,8 @@
         import { TableauEventType } from "https://devplat.tableautest.com/javascripts/api/tableau.embedding.3.4.0.js";
 
         function handleFirstInteractive(e) {
-            let resizeButton = document.getElementById("resizeViz");
-            resizeButton.onclick = async () => {
+            const resizeButton = document.getElementById("resizeViz");
+            resizeButton.onclick = () => {
                 viz.width = document.getElementById("resizeWidth").value;
                 viz.height = document.getElementById("resizeHeight").value;
             }

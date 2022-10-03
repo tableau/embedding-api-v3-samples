@@ -7,15 +7,15 @@
 
     <script type="module">
         import {
-            TableauEventType,
             SelectionUpdateType,
+            TableauEventType,
         } from "https://devplat.tableautest.com/javascripts/api/tableau.embedding.3.4.0.js";
 
         function handleFirstInteractive(e) {
             let sheet = viz.workbook.activeSheet;
 
             // Select Marks
-            let selectButton = document.getElementById("select");
+            const selectButton = document.getElementById("select");
             selectButton.onclick = async () => {
                 const selections = [
                     {
@@ -23,14 +23,14 @@
                         value: "Engineering",
                     },
                 ];
-                sheet.selectMarksByValueAsync(
+                await sheet.selectMarksByValueAsync(
                     selections,
                     SelectionUpdateType.Replace
                 );
             };
 
             // Add Marks to the Selection
-            let addButton = document.getElementById("add");
+            const addButton = document.getElementById("add");
             addButton.onclick = async () => {
                 const selections = [
                     {
@@ -39,13 +39,13 @@
                     },
                 ];
 
-                sheet.selectMarksByValueAsync(selections, SelectionUpdateType.Add);
+                await sheet.selectMarksByValueAsync(selections, SelectionUpdateType.Add);
             };
 
             // Clear Marks
-            let clearButton = document.getElementById("clear");
+            const clearButton = document.getElementById("clear");
             clearButton.onclick = async () => {
-                sheet.clearSelectedMarksAsync();
+                await sheet.clearSelectedMarksAsync();
             };
         }
 
