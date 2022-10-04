@@ -25,7 +25,7 @@
 
             worksheet = viz.workbook.activeSheet;
             const menuItemNames = ["Item 0", "Item 1", "Item 2"];
-            for (name of menuItemNames) {
+            for (let name of menuItemNames) {
                 addContextMenuItem(name);
             }
 
@@ -34,10 +34,11 @@
             renameContextMenu(menuName, menuDescription);
         }
 
-        function handleCustomMarkEvent(customMarkContextMenuEvent) {
+        async function handleCustomMarkEvent(customMarkContextMenuEvent) {
             console.log("Reached CUSTOM_MARK_CONTEXT_MENU");
             contextMenuId = customMarkContextMenuEvent.detail.getContextMenuId();
-            return customMarkContextMenuEvent.detail.getSelectedMarksAsync().then(displaySelectedMarks);
+            const marks = await customMarkContextMenuEvent.detail.getSelectedMarksAsync();
+            return displaySelectedMarks(marks);
         }
 
         function displaySelectedMarks(marks) {
