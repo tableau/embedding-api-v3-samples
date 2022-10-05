@@ -8,11 +8,6 @@
     <script>
         // An event raised when the size of the viz is known. You can use this event to perform tasks such as resizing the elements surrounding the Viz object once the object's size has been established.
         function handleFirstVizSizeKnown(e) {
-            if (e == null) {
-                console.log("Event handleFirstVizSizeKnown has no event object.");
-                return;
-            }
-
             let size = e.detail.vizSize;
             console.log("---handleFirstVizSizeKnown---");
             console.log(e);
@@ -22,29 +17,14 @@
 
         // An event raised when the Viz object first becomes interactive. This is only raised once.
         async function handleFirstInteractive(e) {
-            if (e == null) {
-                console.log("Event FirstInteractive has no event object.");
-                return;
-            }
-
             console.log("---handleFirstInteractive---");
             console.log("Viz Embedding Successful!");
         }
 
         // An event raised after a tab switch occurs (the active sheet has changed). Guarantees the viz object will be interactive after this.
         async function handleTabSwitch(e) {
-            if (e == null) {
-                console.log("Event TabSwitched has no event object.");
-                return;
-            }
-
-            // Example that shows getting the viz object from the interactive event.
+            // Example that shows getting the viz object from the tab switch event.
             let viz = e.target;
-            if (viz == null) {
-                console.log("Event TabSwitched didn't have a viz object?");
-                return;
-            }
-
             let name = viz.workbook.activeSheet.name;
             console.log("---handleTabSwitch---");
             console.log(`Tab switched to ${name}.`);
@@ -52,11 +32,6 @@
 
         // An event raised when a toolbar button or control becomes available or becomes unavailable.
         async function handleToolbarStateChanged(e) {
-            if (e == null) {
-                console.log('Event handleToolbarStateChanged has no event object.');
-                return;
-            }
-
             console.log("---handleToolbarStateChanged---");
             console.log(`canRedo: ${e.detail.canRedo}`);
             console.log(`canUndo: ${e.detail.canUndo}`);
