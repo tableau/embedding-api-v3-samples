@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Filter</title>
+
+    <script type="module">
+        // FilterUpdateType represents the different update types for applying a filter.
+        // TableauEventType represents the type of Tableau embedding event that can be listened for.
+        import { FilterUpdateType, TableauEventType } from "https://devplat.tableautest.com/javascripts/api/tableau.embedding.3.4.0.js";
+
+        // Filter the viz based on the result from the dropdown selection.
+        async function yearFilter(year) {
+            let viz = document.getElementById("tableauViz");
+            let sheet = viz.workbook.activeSheet;
+
+            if (year) {
+                await sheet.applyFilterAsync("Academic Year", [year], FilterUpdateType.Replace);
+            } else {
+                await sheet.clearFilterAsync("Academic Year");
+            }
+        }
+
+        const dropdown = document.getElementById("changeYear");
+
+        // Add event handler to update the viz when a new dropdown value is selected.
+        dropdown.addEventListener("change", (e) => yearFilter(e.target.value));
+    </script>
+</head>
+
+<body>
+    <div style="width:800px; height:700px;overflow:auto;">
+        <!-- Initialization of the Tableau visualization. -->
+        <tableau-viz id="tableauViz" src="https://devplat.tableautest.com/views/RegionalSampleWorkbook/College"
+            hide-tabs>
+            <viz-filter field="Academic Year" value="" />
+        </tableau-viz>
+    </div>
+    <div style="padding:20px;">
+        <!-- Dropdown to select the year to filter by. -->
+        Year: <select id="changeYear">
+            <option value="">All</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+        </select>
+    </div>
+</body>
+
+</html>

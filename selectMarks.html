@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Select Marks</title>
+
+    <script type="module">
+        // SelectionUpdateType is an enum for specifying the selection type for the select marks api.
+        // TableauEventType represents the type of Tableau embedding event that can be listened for.
+        import { SelectionUpdateType, TableauEventType } from "https://devplat.tableautest.com/javascripts/api/tableau.embedding.3.4.0.js";
+
+        function handleFirstInteractive(e) {
+            let sheet = viz.workbook.activeSheet;
+
+            // Select Marks.
+            const selectButton = document.getElementById("select");
+            selectButton.onclick = async () => {
+                const selections = [
+                    {
+                        fieldName: "College",
+                        value: "Engineering",
+                    },
+                ];
+                await sheet.selectMarksByValueAsync(
+                    selections,
+                    SelectionUpdateType.Replace
+                );
+            };
+
+            // Add Marks to the Selection.
+            const addButton = document.getElementById("add");
+            addButton.onclick = async () => {
+                const selections = [
+                    {
+                        fieldName: "College",
+                        value: "Business",
+                    },
+                ];
+
+                await sheet.selectMarksByValueAsync(selections, SelectionUpdateType.Add);
+            };
+
+            // Clear Marks.
+            const clearButton = document.getElementById("clear");
+            clearButton.onclick = async () => {
+                await sheet.clearSelectedMarksAsync();
+            };
+        }
+
+        const viz = document.getElementById("tableauViz");
+
+        // Event fired when a viz first becomes interactive.
+        viz.addEventListener(TableauEventType.FirstInteractive, handleFirstInteractive);
+    </script>
+</head>
+
+<body>
+    <div>
+        <!-- Initialization of the Tableau visualization. -->
+        <tableau-viz id="tableauViz" src="https://devplat.tableautest.com/views/RegionalSampleWorkbook/College"
+            hide-tabs>
+        </tableau-viz>
+    </div>
+    <br />
+    <!-- Buttons to handle selection. -->
+    <button id="select">Select a value</button>
+    <button id="add">Add to the selection</button>
+    <button id="clear">Clear all</button>
+</body>
+
+</html>

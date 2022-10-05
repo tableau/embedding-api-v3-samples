@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type='module'>
+        // ApiMenuType represents the location of a context menu where users can add external menu items.
+        // TableauEventType represents the type of Tableau embedding event that can be listened for.
+        import { ApiMenuType, TableauEventType } from "https://devplat.tableautest.com/javascripts/api/tableau.embedding.3.4.0.js";
+
+        let viz, worksheet, contextMenuId;
+
+        // Initialization of the Tableau visualization.
+        function initializeViz() {
+            const url = "https://devplat.tableautest.com/views/RegionalSampleWorkbook/College";
+            viz = document.getElementById("tableauViz");
+            viz.hideTabs = true;
+            viz.hideToolbar = true;
+            viz.src = url;
+
+            // Event fired when a viz first becomes interactive.
+            viz.addEventListener(TableauEventType.FirstInteractive, handleFirstInteractive);
+            // Event raised when a custom mark context menu is clicked.
+            viz.addEventListener(TableauEventType.CustomMarkContextMenuEvent, handleCustomMarkEvent);
+        }
+
+        function handleFirstInteractive(e) {
+            if (e == null) {
+                log("Event FirstInteractive has no event object");
+                return;
+            }
+
+            // Add custom context menu items.
+            worksheet = viz.workbook.activeSheet;
+            const menuItemNames = ["Item 0", "Item 1", "Item 2"];
+            for (let name of menuItemNames) {
+                addContextMenuItem(name);
+            }
+
+            // Rename custom context menu, and add description.
+            const menuName = "Custom Context Menu Name";
+            const menuDescription = "A sample custom context menu";
+            renameContextMenu(menuName, menuDescription);
+        }
+
+        async function handleCustomMarkEvent(customMarkContextMenuEvent) {
+            console.log("Reached CUSTOM_MARK_CONTEXT_MENU");
+            contextMenuId = customMarkContextMenuEvent.detail.getContextMenuId();
+            const marks = await customMarkContextMenuEvent.detail.getSelectedMarksAsync();
+            return displaySelectedMarks(marks);
+        }
+
+        // Display information about selected marks.
+        function displaySelectedMarks(marks) {
+            let html = "";
+
+            for (let markIndex = 0; markIndex < marks.data[0].data.length; markIndex++) {
+                const columns = marks.data[0].columns;
+                html += `<b>Mark ${markIndex}</b>, MenuId ${contextMenuId}:</b><ul>`;
+                for (let colIndex = 0; colIndex < columns.length; colIndex++) {
+                    html += `<li><b>Field Name:</b> ${columns[colIndex].fieldName}`;
+                    html += `<br/><b>Value:</b> ${marks.data[0].data[markIndex][colIndex].formattedValue}</li>`;
+                }
+                html += "</ul>";
+            }
+            const infoDiv = document.getElementById("markDetails");
+            infoDiv.innerHTML = html;
+        }
+
+        async function addContextMenuItem(menuItem) {
+            const config = { displayName: menuItem };
+
+            try {
+                await worksheet.appendContextMenuAsync(ApiMenuType.Ubertip, config);
+            } catch (e) {
+                alert("An exception was thrown: " + e);
+            };
+        }
+
+        async function renameContextMenu(menuName, menuDescription) {
+            try {
+                await worksheet.renameContextMenuAsync(ApiMenuType.Ubertip, menuName, menuDescription);
+            } catch (e) {
+                alert("An exception was thrown: " + e);
+            };
+        }
+
+        document.addEventListener("DOMContentLoaded", initializeViz);
+    </script>
+</head>
+
+<body>
+    <tableau-viz id="tableauViz" width="800" height="700">
+    </tableau-viz>
+    <!-- Placeholder for mark details. -->
+    <div id="markDetails">
+        <h3 style="background-Color:lightgray;">Display Mark Data</h3>
+    </div>
+</body>
+
+</html>

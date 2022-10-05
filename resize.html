@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Resize</title>
+
+    <script type="module">
+        // TableauEventType represents the type of Tableau embedding event that can be listened for.
+        import { TableauEventType } from "https://devplat.tableautest.com/javascripts/api/tableau.embedding.3.4.0.js";
+
+        function handleFirstInteractive(e) {
+            const resizeButton = document.getElementById("resizeViz");
+
+            // Resize the visualization.
+            resizeButton.onclick = () => {
+                viz.width = document.getElementById("resizeWidth").value;
+                viz.height = document.getElementById("resizeHeight").value;
+            }
+        }
+
+        let viz = document.getElementById("tableauViz");
+        
+        // Event fired when a viz first becomes interactive.
+        viz.addEventListener(TableauEventType.FirstInteractive, handleFirstInteractive);
+    </script>
+</head>
+
+<body>
+    <div style="width:800px; height:700px;overflow:auto;">
+        <!-- Initialization of the Tableau visualization. -->
+        <tableau-viz id="tableauViz" src="https://devplat.tableautest.com/views/RegionalSampleWorkbook/Stocks"
+            hide-tabs>
+        </tableau-viz>
+    </div>
+    <!-- User can input a new width and height to resize the visualization. -->
+    <div style="padding:20px;">
+        <input type="text" id="resizeWidth" placeholder="Width">
+        <input type="text" id="resizeHeight" placeholder="Height">
+        <button id="resizeViz">Resize</button>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Load</title>
+
+    <script type="module">
+        // TableauEventType represents the type of Tableau embedding event that can be listened for.
+        import { TableauEventType } from "https://devplat.tableautest.com/javascripts/api/tableau.embedding.3.4.0.js";
+
+        // List of visualizations to cycle through.
+        const vizList = ["https://devplat.tableautest.com/views/RegionalSampleWorkbook/Flights",
+            "https://devplat.tableautest.com/views/RegionalSampleWorkbook/Obesity",
+            "https://devplat.tableautest.com/views/RegionalSampleWorkbook/College",
+            "https://devplat.tableautest.com/views/RegionalSampleWorkbook/Stocks",
+            "https://devplat.tableautest.com/views/RegionalSampleWorkbook/Storms"];
+
+        let vizLen = vizList.length, vizCount = 0;
+
+        function handleFirstInteractive(e) {
+            console.log(`Viz loaded: ${viz.src}`);
+        }
+
+        // Determine the correct visualization to display.
+        function loadViz(vizPlusMinus) {
+            vizCount = vizCount + vizPlusMinus;
+
+            if (vizCount >= vizLen) {
+                // Keep the vizCount in the bounds of the array index.
+                vizCount = 0;
+            } else if (vizCount < 0) {
+                vizCount = vizLen - 1;
+            }
+
+            viz.src = vizList[vizCount];
+        }
+
+        let viz = document.getElementById("tableauViz");
+
+        // Event fired when a viz first becomes interactive.
+        viz.addEventListener(TableauEventType.FirstInteractive, handleFirstInteractive);
+        viz.src = vizList[0];
+
+        // Attach event handlers to the "previous" and "next" button clicks.
+        document.getElementById("previous").onclick = () => loadViz(-1);
+        document.getElementById("next").onclick = () => loadViz(1);
+    </script>
+</head>
+
+<body>
+    <!-- Initialization of the Tableau visualization. -->
+    <div style="width:800px; height:700px;">
+        <tableau-viz id="tableauViz" hide-tabs></tableau-viz>
+    </div>
+    <!-- Buttons to show the previous or next visualization. -->
+    <div id="controls" style="padding:20px;">
+        <button style="width:100px;" id="previous">Previous</button>
+        <button style="width:100px;" id="next">Next</button>
+    </div>
+</body>
+
+</html>
