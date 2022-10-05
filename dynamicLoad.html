@@ -6,7 +6,7 @@
     <title>Dynamic Load</title>
 
     <script type="module">
-        // TableauEventType represents the type of tableau embedding event that can be listened for.
+        // TableauEventType represents the type of Tableau embedding event that can be listened for.
         import { TableauEventType } from "https://devplat.tableautest.com/javascripts/api/tableau.embedding.3.4.0.js";
 
         // List of visualizations to cycle through.
@@ -37,7 +37,7 @@
         }
 
         let viz = document.getElementById("tableauViz");
-        
+
         // Event fired when a viz first becomes interactive.
         viz.addEventListener(TableauEventType.FirstInteractive, handleFirstInteractive);
         viz.src = vizList[0];
@@ -49,7 +49,7 @@
 </head>
 
 <body>
-    <!-- Initialization of the tableau visualization. -->
+    <!-- Initialization of the Tableau visualization. -->
     <div style="width:800px; height:700px;">
         <tableau-viz id="tableauViz" hide-tabs></tableau-viz>
     </div>

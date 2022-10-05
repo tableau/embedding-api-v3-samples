@@ -7,7 +7,7 @@
 
     <script type="module">
         // SelectionUpdateType is an enum for specifying the selection type for the select marks api.
-        // TableauEventType represents the type of tableau embedding event that can be listened for.
+        // TableauEventType represents the type of Tableau embedding event that can be listened for.
         import { SelectionUpdateType, TableauEventType } from "https://devplat.tableautest.com/javascripts/api/tableau.embedding.3.4.0.js";
 
         function handleFirstInteractive(e) {
@@ -49,7 +49,7 @@
         }
 
         const viz = document.getElementById("tableauViz");
-        
+
         // Event fired when a viz first becomes interactive.
         viz.addEventListener(TableauEventType.FirstInteractive, handleFirstInteractive);
     </script>
@@ -57,7 +57,7 @@
 
 <body>
     <div>
-        <!-- Initialization of the tableau visualization. -->
+        <!-- Initialization of the Tableau visualization. -->
         <tableau-viz id="tableauViz" src="https://devplat.tableautest.com/views/RegionalSampleWorkbook/College"
             hide-tabs>
         </tableau-viz>
