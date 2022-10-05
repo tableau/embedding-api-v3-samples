@@ -6,8 +6,11 @@
     <title>Respond To Events</title>
 
     <script type="module">
+        // TableauEventType represents the type of tableau embedding event that can be listened for.
         import { TableauEventType } from "https://devplat.tableautest.com/javascripts/api/tableau.embedding.3.4.0.js";
 
+
+        // Display information about selected marks.
         async function handleMarksSelection(e) {
             const marksCollection = await e.detail.getMarksAsync();
             const marksData = marksCollection.data[0];
@@ -28,19 +31,25 @@
             infoDiv.innerHTML = html;
         }
 
-        let viz = document.getElementById("tableauViz");
+        const viz = document.getElementById("tableauViz");
+
+        // An event raised when the selected marks on a visualization have changed. 
+        // You can use this event type with TableauViz objects.
         viz.addEventListener(TableauEventType.MarkSelectionChanged, handleMarksSelection);
     </script>
 </head>
 
 <body>
     <div>
+        <!-- Initialization of the tableau visualization. -->
         <tableau-viz id="tableauViz" src="https://devplat.tableautest.com/views/RegionalSampleWorkbook/College"
             hide-tabs>
+            <!-- Add filter during initialization. -->
             <viz-filter field="Academic Year" value="" />
         </tableau-viz>
     </div>
     <br>
+    <!-- Placeholder for mark details. -->
     <div id="markDetails">Information about selected marks displays here.</div>
 </body>
 
