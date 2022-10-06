@@ -9,7 +9,7 @@ Getting Started
 * Try the samples
 * Use 'Issues' to note any bugs or to request new samples
 * Let us know if you have samples of your own you'd like to share
-* Check out the Tableau Developer Portal at http://developers.tableau.com for a tutorial, the official docs, and the community forum
+* Check out the Tableau Developer Portal at http://developers.tableau.com to get a free Developer Sandbox and for tutorials, official docs, and the community forum
 
 Embedding API V3 Samples
 ---------------
