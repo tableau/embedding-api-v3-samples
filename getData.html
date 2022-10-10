@@ -7,6 +7,7 @@
 
     <script type="module">
         // TableauEventType represents the type of Tableau embedding event that can be listened for.
+        // TODO: Replace when Public goes live with 22.3
         import { TableauEventType } from "https://cd-next-rel-public.online.vnext.tabint.net/javascripts/api/tableau.embedding.3.3.0.js";
 
         async function handleFirstInteractive(e) {
@@ -46,8 +47,11 @@
     </div>
     <div style="width:800px; height:700px;">
         <!-- Initialization of the Tableau visualization. -->
-        <tableau-viz id="tableauViz" src="https://devplat.tableautest.com/views/RegionalSampleWorkbook/Storms"
+        <!-- TODO: Replace when Public goes live with 22.3 -->
+        <tableau-viz id="tableauViz" src="https://cd-next-rel-public.online.vnext.tabint.net/views/RegionalSampleWorkbook/Storms"
             toolbar="bottom" hide-tabs>
+            <!-- TODO: Remove when Public goes live with 22.3 -->
+            <custom-parameter name=":showVizHome" value="n"></custom-parameter>
         </tableau-viz>
     </div>
     <!-- Placeholder for the Underlying Data.  -->
