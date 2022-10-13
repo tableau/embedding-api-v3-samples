@@ -6,13 +6,13 @@
     <title>Basic Embedding via JS Initialization</title>
 
     <script type="module">
-        import { TableauViz } from "https://devplat.tableautest.com/javascripts/api/tableau.embedding.3.4.0.js";
+        import { TableauViz } from "https://public.tableau.com/javascripts/api/tableau.embedding.3.3.0.js";
 
         // Initialization of the Tableau visualization via JavaScript. Learn more here:
         // https://help.tableau.com/current/api/embedding_api/en-us/docs/embedding_api_configure.html
         const viz = new TableauViz();
 
-        viz.src = "https://devplat.tableautest.com/views/RegionalSampleWorkbook/Storms";
+        viz.src = "https://public.tableau.com/views/RegionalSampleWorkbook/Storms";
         viz.toolbar = "hidden";
 
         document.getElementById("tableauViz").appendChild(viz);

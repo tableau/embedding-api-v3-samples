@@ -7,7 +7,7 @@
 
     <script type="module">
         // TableauEventType represents the type of Tableau embedding event that can be listened for.
-        import { TableauEventType } from "https://devplat.tableautest.com/javascripts/api/tableau.embedding.3.4.0.js";
+        import { TableauEventType } from "https://public.tableau.com/javascripts/api/tableau.embedding.3.3.0.js";
 
 
         // Display information about selected marks.
@@ -42,7 +42,7 @@
 <body>
     <div>
         <!-- Initialization of the Tableau visualization. -->
-        <tableau-viz id="tableauViz" src="https://devplat.tableautest.com/views/RegionalSampleWorkbook/College"
+        <tableau-viz id="tableauViz" src="https://public.tableau.com/views/RegionalSampleWorkbook/College"
             hide-tabs>
             <!-- Add filter during initialization. -->
             <viz-filter field="Academic Year" value="" />
