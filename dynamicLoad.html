@@ -7,16 +7,14 @@
 
     <script type="module">
         // TableauEventType represents the type of Tableau embedding event that can be listened for.
-        // TODO: Replace when Public goes live with 22.3
-        import { TableauEventType } from "https://cd-next-rel-public.online.vnext.tabint.net/javascripts/api/tableau.embedding.3.3.0.js";
+        import { TableauEventType } from "https://public.tableau.com/javascripts/api/tableau.embedding.3.3.0.js";
 
         // List of visualizations to cycle through.
-        // TODO: Replace when Public goes live with 22.3
-        const vizList = ["https://cd-next-rel-public.online.vnext.tabint.net/views/RegionalSampleWorkbook/Flights",
-            "https://cd-next-rel-public.online.vnext.tabint.net/views/RegionalSampleWorkbook/Obesity",
-            "https://cd-next-rel-public.online.vnext.tabint.net/views/RegionalSampleWorkbook/College",
-            "https://cd-next-rel-public.online.vnext.tabint.net/views/RegionalSampleWorkbook/Stocks",
-            "https://cd-next-rel-public.online.vnext.tabint.net/views/RegionalSampleWorkbook/Storms"];
+        const vizList = ["https://public.tableau.com/views/RegionalSampleWorkbook/Flights",
+            "https://public.tableau.com/views/RegionalSampleWorkbook/Obesity",
+            "https://public.tableau.com/views/RegionalSampleWorkbook/College",
+            "https://public.tableau.com/views/RegionalSampleWorkbook/Stocks",
+            "https://public.tableau.com/views/RegionalSampleWorkbook/Storms"];
 
         let vizLen = vizList.length, vizCount = 0;
 
@@ -54,8 +52,6 @@
     <!-- Initialization of the Tableau visualization. -->
     <div style="width:800px; height:700px;">
         <tableau-viz id="tableauViz" hide-tabs>
-            <!-- TODO: Remove when Public goes live with 22.3 -->
-            <custom-parameter name=":showVizHome" value="n"></custom-parameter>
         </tableau-viz>
     </div>
     <!-- Buttons to show the previous or next visualization. -->
