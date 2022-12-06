@@ -61,7 +61,7 @@
         );
         console.log(logicalTableData);
         console.log(`Total row count: ${logicalTableData.totalRowCount}`);
-        // Display the row count
+        // Display the row count; the maximum is 10,000 rows
         document
           .getElementById('info')
           .insertAdjacentHTML(
@@ -76,6 +76,7 @@
           logicalTables[0].id,
           pageRowCount
         );
+        try {
         // Display the number of pages to read
         console.log(`Number of pages: ${pageReader.pageCount}`);
         document
@@ -89,15 +90,19 @@
         let currentPageDataTable = await pageReader.getPageAsync(pageNumber);
         console.log(currentPageDataTable);
 
-
         // Add data to HTML element.
         const target = document.getElementById('dataTarget')
         target.innerHTML = `<h4>Data Table Page ${pageNumber} Data:</h4><p>${JSON.stringify(
           currentPageDataTable.data
         )}</p>`;
 
+        } catch (e) {
+          console.error(e);
+
+        } finally {
         // Free up memory when done
         await pageReader.releaseAsync();
+        }
       }
 
       // get the viz from the HTML web component
