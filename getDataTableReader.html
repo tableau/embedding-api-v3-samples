@@ -4,36 +4,22 @@
     <meta charset="UTF-8" />
     <title>Get Data (TableDataReader)</title>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
     <script type="module">
       // TableauEventType represents the type of Tableau embedding event that can be listened for.
-    //  import { TableauEventType } from "https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.js";
-    // TODO: change import with 22.4 release on Public
-      import { TableauEventType } from 'https://devplat.tableautest.com/javascripts/api/tableau.embedding.3.latest.js'
+      import { TableauEventType } from "https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.js";
 
       async function handleFirstInteractive (e) {
         const getDataButton = document.getElementById('get-data');
 
-        let pageSelector = $('#pageSelect');
-        pageSelector.prop('disabled', false);
+        const pageSelector = document.getElementById('pageSelect');
 
-        let pageNumber = '${pageSelector.val()}';
-
-        //  update the page data upon a selector change.
-        pageSelector.change(function () {
-          getDataAsync(pageSelector.val())
+        // Get data based on the page selected
+        pageSelector.addEventListener('change', (event) => {
+          const pageNumber = parseInt(pageSelector.value, 10);
+          getDataButton.onclick = async () => {
+             await getDataAsync(pageNumber)
+            }
         });
-
-        // default values if null.
-        if (pageSelector.val() === null) {
-          pageNumber = 0
-        };
-
-        // Get the first page of data
-        getDataButton.onclick = async () => {
-          getDataAsync(pageNumber)
-        }
       }
 
       // Get the underlying data using the DataTableReader
@@ -50,9 +36,7 @@
         // Loop through each table that was used in creating this data source
         logicalTables.forEach(function (table) {
           console.log(`Name of logical table: ${table.caption}`);
-          document.getElementById(
-            'info'
-          ).innerHTML = `<p>Name of logical table: ${table.caption}</p>`
+          console.log(`ID of logical table: ${table.id}`);
         });
 
         // Get the data from the first logical table
@@ -61,13 +45,7 @@
         );
         console.log(logicalTableData);
         console.log(`Total row count: ${logicalTableData.totalRowCount}`);
-        // Display the row count; the maximum is 10,000 rows
-        document
-          .getElementById('info')
-          .insertAdjacentHTML(
-            'beforeend',
-            `<p>Total row count: ${logicalTableData.totalRowCount}</p>`
-          );
+
 
         // Set the page size to 1000 for this sample; the default value is 10000 rows
         const pageRowCount = 1000;
@@ -77,31 +55,36 @@
           pageRowCount
         );
         try {
-        // Display the number of pages to read
-        console.log(`Number of pages: ${pageReader.pageCount}`);
-        document
-          .getElementById('info')
-          .insertAdjacentHTML(
-            'beforeend',
-            `<p>Number of pages: ${pageReader.pageCount}</p>`
-          );
+          // Display the number of pages to read
+          console.log(`Number of pages: ${pageReader.pageCount}`);
+          document
+            .getElementById('info')
+            .innerHTML =
+           `<p>logicalTables[0].caption: ${logicalTables[0].caption}<br/>
+                logicalTables[0].id: ${logicalTables[0].id}</br>
+                pageRowCount: ${pageRowCount}</br>
+                totalRowCount: ${logicalTableData.totalRowCount}</br>
+                pageCount: ${pageReader.pageCount}<br/>
+                Scroll down to view data (page ${pageNumber})</p>`;
+          
 
-        // Get the page data based on page number requested
-        let currentPageDataTable = await pageReader.getPageAsync(pageNumber);
-        console.log(currentPageDataTable);
+          // Get the page data based on page number requested
+          let currentPageDataTable = await pageReader.getPageAsync(pageNumber);
+          console.log(`Page ${pageNumber} DataTable:`);
+          console.log(currentPageDataTable);
 
-        // Add data to HTML element.
-        const target = document.getElementById('dataTarget')
-        target.innerHTML = `<h4>Data Table Page ${pageNumber} Data:</h4><p>${JSON.stringify(
-          currentPageDataTable.data
-        )}</p>`;
+          // Add data to HTML element.
+          const target = document.getElementById('dataTarget')
+          target.innerHTML = `<h4>Data Table Page ${pageNumber} Data:</h4><p>${JSON.stringify(
+            currentPageDataTable.data
+          )}</p>`;
 
         } catch (e) {
           console.error(e);
 
         } finally {
-        // Free up memory when done
-        await pageReader.releaseAsync();
+          // Free up memory when done
+          await pageReader.releaseAsync();
         }
       }
 
@@ -120,37 +103,33 @@
     <div>
       <h1>Get Logical Data (TableDataReader) Example </h1>
       <p>
-        Click <b>Get Data</b> to get the first page (page 0) of the logical
-        table data for the viz.
+        Select a page and click <b>Get Data</b> to get logical
+        table data from the viz.
       </p>
       <button id="get-data">Get Data</button>
-      <div id="info"></div>
-      <p>Select a page to retrieve additional data:</p>
+    
       <select
         id="pageSelect"
         class="form-select"
         aria-label="Default select example"
-        disabled="false"
       >
-        <option selected disabled>Select page</option>
+        <option value="0" selected disabled>Select page</option>
         <option value="0">Page 0</option>
         <option value="1">Page 1</option>
         <option value="2">Page 2</option>
         <option value="3">Page 3</option>
         <option value="4">Page 4</option>
       </select>
+      <div id="info"></div>
     </div>
     <div style="width:800px; height:700px;">
       <!-- Initialization of the Tableau visualization. -->
      <tableau-viz
         id="tableauViz"
-        src="https://10ax.online.tableau.com/t/gumby456/views/RegionalSampleWorkbook/Storms"
+        src="https://public.tableau.com/views/RegionalSampleWorkbook/Storms"
         toolbar="bottom"
         hide-tabs
       > 
-     <!-- // TODO: change src with 22.4 release on Public 
-      src="https://public.tableau.com/views/RegionalSampleWorkbook/Storms"
-    -->
       </tableau-viz>
     </div>
     <!-- Placeholder for the Underlying Data.  -->
