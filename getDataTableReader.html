@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Get Data (TableDataReader)</title>
+
+    <script type="module">
+      // TableauEventType represents the type of Tableau embedding event that can be listened for.
+      import { TableauEventType } from "https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.js";
+
+      async function handleFirstInteractive (e) {
+        const getDataButton = document.getElementById('get-data');
+
+        const pageSelector = document.getElementById('pageSelect');
+
+        // Get data based on the page selected
+        pageSelector.addEventListener('change', (event) => {
+          const pageNumber = parseInt(pageSelector.value, 10);
+          getDataButton.onclick = async () => {
+             await getDataAsync(pageNumber)
+            }
+        });
+      }
+
+      // Get the underlying data using the DataTableReader
+      async function getDataAsync (pageNumber) {
+        // Get data from a specified sheet
+        const sheet = viz.workbook.activeSheet.worksheets.find(
+          sheet => sheet.name === 'Storm Map Sheet'
+        );
+        const datasource = await sheet.getDataSourcesAsync();
+
+        // Get the logical tables from the first data source
+        const logicalTables = await datasource[0].getLogicalTablesAsync();
+
+        // Loop through each table that was used in creating this data source
+        logicalTables.forEach(function (table) {
+          console.log(`Name of logical table: ${table.caption}`);
+          console.log(`ID of logical table: ${table.id}`);
+        });
+
+        // Get the data from the first logical table
+        const logicalTableData = await datasource[0].getLogicalTableDataAsync(
+          logicalTables[0].id
+        );
+        console.log(logicalTableData);
+        // There is a maximum of 10,000 rows
+        console.log(`Total row count: ${logicalTableData.totalRowCount}`);
+
+
+        // Set the page size to 1000 for this sample; the default value is 10000 rows
+        const pageRowCount = 1000;
+        // Create the data table reader
+        const pageReader = await datasource[0].getLogicalTableDataReaderAsync(
+          logicalTables[0].id,
+          pageRowCount
+        );
+        try {
+          // Display the number of pages to read
+          console.log(`Number of pages: ${pageReader.pageCount}`);
+          document
+            .getElementById('info')
+            .innerHTML =
+           `<p>logicalTables[0].caption: ${logicalTables[0].caption}<br/>
+                logicalTables[0].id: ${logicalTables[0].id}</br>
+                pageRowCount: ${pageRowCount}</br>
+                totalRowCount: ${logicalTableData.totalRowCount}</br>
+                pageCount: ${pageReader.pageCount}<br/>
+                Scroll down to view data (page ${pageNumber})</p>`;
+          
+
+          // Get the page data based on page number requested
+          let currentPageDataTable = await pageReader.getPageAsync(pageNumber);
+          console.log(`Page ${pageNumber} DataTable:`);
+          console.log(currentPageDataTable);
+
+          // Add data to HTML element.
+          const target = document.getElementById('dataTarget')
+          target.innerHTML = `<h4>Data Table Page ${pageNumber} Data:</h4><p>${JSON.stringify(
+            currentPageDataTable.data
+          )}</p>`;
+
+        } catch (e) {
+          console.error(e);
+
+        } finally {
+          // Free up memory when done
+          await pageReader.releaseAsync();
+        }
+      }
+
+      // get the viz from the HTML web component
+      const viz = document.getElementById('tableauViz');
+
+      // Event fired when a viz first becomes interactive.
+      viz.addEventListener(
+        TableauEventType.FirstInteractive,
+        handleFirstInteractive
+      );
+    </script>
+  </head>
+
+  <body>
+    <div>
+      <h1>Get Logical Data (TableDataReader) Example </h1>
+      <p>
+        Select a page and click <b>Get Data</b> to get logical
+        table data from the viz.
+      </p>
+      <button id="get-data">Get Data</button>
+    
+      <select
+        id="pageSelect"
+        class="form-select"
+        aria-label="Default select example"
+      >
+        <option value="0" selected disabled>Select page</option>
+        <option value="0">Page 0</option>
+        <option value="1">Page 1</option>
+        <option value="2">Page 2</option>
+        <option value="3">Page 3</option>
+        <option value="4">Page 4</option>
+      </select>
+      <div id="info"></div>
+    </div>
+    <div style="width:800px; height:700px;">
+      <!-- Initialization of the Tableau visualization. -->
+     <tableau-viz
+        id="tableauViz"
+        src="https://public.tableau.com/views/RegionalSampleWorkbook/Storms"
+        toolbar="bottom"
+        hide-tabs
+      > 
+      </tableau-viz>
+    </div>
+    <!-- Placeholder for the Underlying Data.  -->
+    <div id="dataTarget"></div>
+  </body>
+</html>
