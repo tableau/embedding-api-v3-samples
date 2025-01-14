@@ -7,6 +7,7 @@ import DynamicLoad from './samples/dynamic-load';
 import EventListeners from './samples/event-listeners';
 import EventListenersInline from './samples/event-listeners-inline';
 import GetData from './samples/get-data';
+import GetDataTableReader from './samples/get-data-table-reader';
 import Template from './samples/template';
 
 const routes = [
@@ -44,6 +45,11 @@ const routes = [
     title: 'Get data',
     path: '/get-data',
     element: <GetData />,
+  },
+  {
+    title: 'Get logical data ',
+    path: '/get-data-table-reader',
+    element: <GetDataTableReader />,
   },
 ];
 

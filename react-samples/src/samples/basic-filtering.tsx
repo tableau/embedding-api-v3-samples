@@ -28,11 +28,9 @@ export default function BasicFiltering() {
     <>
       <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
         <span>Year:</span>
-        <select onChange={(event) => applyYearFilter(event.target.value)}>
+        <select defaultValue="2013" onChange={(event) => applyYearFilter(event.target.value)}>
           <option value="">All</option>
-          <option value="2013" selected>
-            2013
-          </option>
+          <option value="2013">2013</option>
           <option value="2014">2014</option>
         </select>
       </div>
