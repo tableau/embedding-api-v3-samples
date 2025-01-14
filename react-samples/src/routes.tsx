@@ -2,6 +2,7 @@ import { NavLink, Route } from 'react-router';
 
 import BasicEmbedding from './samples/basic-embedding';
 import CustomContextMenu from './samples/custom-context-menu';
+import DynamicLoad from './samples/dynamic-load';
 import EventListeners from './samples/event-listeners';
 import EventListenersInline from './samples/event-listeners-inline';
 import Template from './samples/template';
@@ -26,6 +27,11 @@ const routes = [
     title: 'Custom context menu',
     path: '/custom-context-menu',
     element: <CustomContextMenu />,
+  },
+  {
+    title: 'Dynamic loading',
+    path: '/dynamic-load',
+    element: <DynamicLoad />,
   },
 ];
 
