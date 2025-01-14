@@ -10,6 +10,7 @@ import GetData from './samples/get-data';
 import GetDataTableReader from './samples/get-data-table-reader';
 import ResizeViz from './samples/resize-viz';
 import Template from './samples/template';
+import UserEvents from './samples/user-events';
 
 const routes = [
   {
@@ -56,6 +57,11 @@ const routes = [
     title: 'Resize viz',
     path: '/resize-viz',
     element: <ResizeViz />,
+  },
+  {
+    title: 'User events',
+    path: '/user-events',
+    element: <UserEvents />,
   },
 ];
 
