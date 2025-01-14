@@ -1,6 +1,7 @@
 import { NavLink, Route } from 'react-router';
 
 import BasicEmbedding from './samples/basic-embedding';
+import CustomContextMenu from './samples/custom-context-menu';
 import EventListeners from './samples/event-listeners';
 import EventListenersInline from './samples/event-listeners-inline';
 import Template from './samples/template';
@@ -20,6 +21,11 @@ const routes = [
     title: 'Inline event listeners',
     path: '/inline-event-listeners',
     element: <EventListenersInline />,
+  },
+  {
+    title: 'Custom context menu',
+    path: '/custom-context-menu',
+    element: <CustomContextMenu />,
   },
 ];
 
