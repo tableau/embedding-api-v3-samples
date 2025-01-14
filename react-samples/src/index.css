@@ -4,3 +4,26 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 }
+
+ul {
+  margin: 0;
+}
+
+a {
+  padding: 0.5rem;
+  color: #fff;
+  border-radius: 0.25rem;
+}
+
+a:focus {
+  background: #333;
+}
+
+a:hover {
+  background: #000;
+}
+
+a:active {
+  background: #000;
+  color: #ffffff;
+}
