@@ -1,6 +1,7 @@
 import { NavLink, Route } from 'react-router';
 
 import BasicEmbedding from './samples/basic-embedding';
+import EventListeners from './samples/event-listeners';
 import EventListenersInline from './samples/event-listeners-inline';
 import Template from './samples/template';
 
@@ -9,6 +10,11 @@ const routes = [
     title: 'Basic embedding',
     path: '/basic-embedding',
     element: <BasicEmbedding />,
+  },
+  {
+    title: 'Event listeners',
+    path: '/event-listeners',
+    element: <EventListeners />,
   },
   {
     title: 'Inline event listeners',
