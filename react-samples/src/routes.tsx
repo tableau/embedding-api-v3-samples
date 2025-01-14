@@ -1,6 +1,7 @@
 import { NavLink, Route } from 'react-router';
 
 import BasicEmbedding from './samples/basic-embedding';
+import BasicFiltering from './samples/basic-filtering';
 import CustomContextMenu from './samples/custom-context-menu';
 import DynamicLoad from './samples/dynamic-load';
 import EventListeners from './samples/event-listeners';
@@ -14,14 +15,9 @@ const routes = [
     element: <BasicEmbedding />,
   },
   {
-    title: 'Event listeners',
-    path: '/event-listeners',
-    element: <EventListeners />,
-  },
-  {
-    title: 'Inline event listeners',
-    path: '/inline-event-listeners',
-    element: <EventListenersInline />,
+    title: 'Basic filtering',
+    path: '/basic-filtering',
+    element: <BasicFiltering />,
   },
   {
     title: 'Custom context menu',
@@ -32,6 +28,16 @@ const routes = [
     title: 'Dynamic loading',
     path: '/dynamic-load',
     element: <DynamicLoad />,
+  },
+  {
+    title: 'Event listeners',
+    path: '/event-listeners',
+    element: <EventListeners />,
+  },
+  {
+    title: 'Inline event listeners',
+    path: '/inline-event-listeners',
+    element: <EventListenersInline />,
   },
 ];
 
