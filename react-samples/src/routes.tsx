@@ -1,27 +1,34 @@
 import { NavLink, Route } from 'react-router';
 
 import BasicEmbedding from './samples/basic-embedding';
+import EventListenersInline from './samples/event-listeners-inline';
+import Template from './samples/template';
 
-const routes = {
-  basicEmbedding: {
-    linkText: 'Basic Embedding',
+const routes = [
+  {
+    title: 'Basic embedding',
     path: '/basic-embedding',
     element: <BasicEmbedding />,
   },
-};
+  {
+    title: 'Inline event listeners',
+    path: '/inline-event-listeners',
+    element: <EventListenersInline />,
+  },
+];
 
 export function getSampleRoutes() {
-  return Object.values(routes).map(({ path, element }) => (
-    <Route key={path} path={path} element={element} />
+  return routes.map(({ element, path, title }) => (
+    <Route key={path} path={path} element={<Template {...{ title, element }} />} />
   ));
 }
 
 export function getSampleLinks() {
   return (
     <ul>
-      {Object.values(routes).map(({ linkText, path }) => (
+      {routes.map(({ title, path }) => (
         <li key={path}>
-          <NavLink to={path}>{linkText}</NavLink>
+          <NavLink to={path}>{title}</NavLink>
         </li>
       ))}
     </ul>

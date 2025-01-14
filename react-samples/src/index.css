@@ -1,5 +1,6 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 1.5rem;
 
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -7,6 +8,10 @@
 
 ul {
   margin: 0;
+}
+
+li {
+  margin: 1rem;
 }
 
 a {
@@ -26,4 +31,9 @@ a:hover {
 a:active {
   background: #000;
   color: #ffffff;
+}
+
+.container {
+  width: 1600px;
+  height: 1200px;
 }
