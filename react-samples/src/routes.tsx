@@ -6,6 +6,7 @@ import CustomContextMenu from './samples/custom-context-menu';
 import DynamicLoad from './samples/dynamic-load';
 import EventListeners from './samples/event-listeners';
 import EventListenersInline from './samples/event-listeners-inline';
+import GetData from './samples/get-data';
 import Template from './samples/template';
 
 const routes = [
@@ -38,6 +39,11 @@ const routes = [
     title: 'Inline event listeners',
     path: '/inline-event-listeners',
     element: <EventListenersInline />,
+  },
+  {
+    title: 'Get data',
+    path: '/get-data',
+    element: <GetData />,
   },
 ];
 
