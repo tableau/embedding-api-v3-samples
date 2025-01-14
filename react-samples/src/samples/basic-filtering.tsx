@@ -6,22 +6,21 @@ export default function BasicFiltering() {
   const vizRef = useTableauVizRef();
 
   const applyYearFilter = async (year: string) => {
-    const sheet = getViz().workbook.activeSheet as Api.Worksheet;
     if (year) {
       const options: Api.FilterOptions = { isExcludeMode: false };
-      await sheet.applyFilterAsync(field, [year], Api.FilterUpdateType.Replace, options);
+      await getActiveSheet().applyFilterAsync(field, [year], Api.FilterUpdateType.Replace, options);
     } else {
-      await sheet.clearFilterAsync(field);
+      await getActiveSheet().clearFilterAsync(field);
     }
   };
 
-  const getViz = (): Api.TableauViz => {
+  const getActiveSheet = <T extends Api.Worksheet | Api.Dashboard = Api.Worksheet>(): T => {
     const viz = vizRef.current;
     if (!viz) {
       throw new Error('TableauViz ref not assigned yet.');
     }
 
-    return viz;
+    return viz.workbook.activeSheet as T;
   };
 
   return (

@@ -9,6 +9,7 @@ import EventListenersInline from './samples/event-listeners-inline';
 import GetData from './samples/get-data';
 import GetDataTableReader from './samples/get-data-table-reader';
 import ResizeViz from './samples/resize-viz';
+import SelectMarks from './samples/select-marks';
 import Template from './samples/template';
 import UserEvents from './samples/user-events';
 
@@ -57,6 +58,11 @@ const routes = [
     title: 'Resize viz',
     path: '/resize-viz',
     element: <ResizeViz />,
+  },
+  {
+    title: 'Select marks',
+    path: '/select-marks',
+    element: <SelectMarks />,
   },
   {
     title: 'User events',

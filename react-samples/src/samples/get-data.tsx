@@ -6,8 +6,7 @@ export default function GetData() {
   const [tableData, setTableData] = useState<Api.DataTable>();
 
   const getData = async () => {
-    const dashboard = getViz().workbook.activeSheet as Api.Dashboard;
-    const sheet = dashboard.worksheets.find((sheet) => sheet.name === 'Storm Map Sheet')!;
+    const sheet = getActiveSheet().worksheets.find((sheet) => sheet.name === 'Storm Map Sheet')!;
 
     const tables = await sheet.getUnderlyingTablesAsync();
     const options: Api.GetUnderlyingDataOptions = {
@@ -20,13 +19,13 @@ export default function GetData() {
     setTableData(underlyingTableData);
   };
 
-  const getViz = (): Api.TableauViz => {
+  const getActiveSheet = <T extends Api.Worksheet | Api.Dashboard = Api.Dashboard>(): T => {
     const viz = vizRef.current;
     if (!viz) {
       throw new Error('TableauViz ref not assigned yet.');
     }
 
-    return viz;
+    return viz.workbook.activeSheet as T;
   };
 
   return (

@@ -9,8 +9,7 @@ export default function GetDataTableReader() {
   const getData = async () => {
     setCurrentTableData(undefined);
 
-    const dashboard = getViz().workbook.activeSheet as Api.Dashboard;
-    const sheet = dashboard.worksheets.find((sheet) => sheet.name === 'Storm Map Sheet')!;
+    const sheet = getActiveSheet().worksheets.find((sheet) => sheet.name === 'Storm Map Sheet')!;
 
     // Get the logical tables from the first data source
     const datasource = await sheet.getDataSourcesAsync();
@@ -47,13 +46,13 @@ export default function GetDataTableReader() {
     }
   };
 
-  const getViz = (): Api.TableauViz => {
+  const getActiveSheet = <T extends Api.Worksheet | Api.Dashboard = Api.Dashboard>(): T => {
     const viz = vizRef.current;
     if (!viz) {
       throw new Error('TableauViz ref not assigned yet.');
     }
 
-    return viz;
+    return viz.workbook.activeSheet as T;
   };
 
   return (

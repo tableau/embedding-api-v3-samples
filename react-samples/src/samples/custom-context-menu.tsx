@@ -22,33 +22,34 @@ export default function CustomContextMenu() {
   }, []);
 
   async function addContextMenuItem(menuItem: string) {
-    const worksheet = getViz().workbook.activeSheet as Api.Worksheet;
     const options: Api.ContextMenuOptions = { displayName: menuItem };
 
     try {
-      await worksheet.appendContextMenuAsync(Api.ApiMenuType.Ubertip, options);
+      await getActiveSheet().appendContextMenuAsync(Api.ApiMenuType.Ubertip, options);
     } catch (e: unknown) {
       alert(`An exception was thrown: ${e}`);
     }
   }
 
   async function renameContextMenu(menuName: string, menuDescription: string) {
-    const worksheet = getViz().workbook.activeSheet as Api.Worksheet;
-
     try {
-      await worksheet.renameContextMenuAsync(Api.ApiMenuType.Ubertip, menuName, menuDescription);
+      await getActiveSheet().renameContextMenuAsync(
+        Api.ApiMenuType.Ubertip,
+        menuName,
+        menuDescription
+      );
     } catch (e: unknown) {
       alert(`An exception was thrown: ${e}`);
     }
   }
 
-  const getViz = (): Api.TableauViz => {
+  const getActiveSheet = <T extends Api.Worksheet | Api.Dashboard = Api.Worksheet>(): T => {
     const viz = vizRef.current;
     if (!viz) {
       throw new Error('TableauViz ref not assigned yet.');
     }
 
-    return viz;
+    return viz.workbook.activeSheet as T;
   };
 
   return (
