@@ -11,6 +11,7 @@ import EventListenersInline from './samples/event-listeners-inline';
 import GetData from './samples/get-data';
 import GetDataTableReader from './samples/get-data-table-reader';
 import PulseEvents from './samples/pulse-events';
+import PulseMethods from './samples/pulse-methods';
 import PulseThemes from './samples/pulse-themes';
 import ResizeViz from './samples/resize-viz';
 import SelectMarks from './samples/select-marks';
@@ -96,14 +97,19 @@ const routes = [
     element: <BasicPulse />,
   },
   {
-    title: 'Pulse Events',
+    title: 'Pulse events',
     path: '/pulse-events',
     element: <PulseEvents />,
   },
   {
-    title: 'Pulse Themes',
+    title: 'Pulse themes',
     path: '/pulse-themes',
     element: <PulseThemes />,
+  },
+  {
+    title: 'Pulse methods',
+    path: '/pulse-methods',
+    element: <PulseMethods />,
   },
 ];
 
