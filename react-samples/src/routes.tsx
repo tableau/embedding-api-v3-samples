@@ -3,6 +3,7 @@ import { NavLink, Route } from 'react-router';
 import AuthoringViz from './samples/authoring-viz';
 import BasicEmbedding from './samples/basic-embedding';
 import BasicFiltering from './samples/basic-filtering';
+import BasicPulse from './samples/basic-pulse';
 import CustomContextMenu from './samples/custom-context-menu';
 import DynamicLoad from './samples/dynamic-load';
 import EventListeners from './samples/event-listeners';
@@ -86,6 +87,11 @@ const routes = [
     title: 'Embedded Web Authoring',
     path: '/authoring-viz',
     element: <AuthoringViz />,
+  },
+  {
+    title: 'Basic Pulse Embedding',
+    path: '/basic-pulse',
+    element: <BasicPulse />,
   },
 ];
 

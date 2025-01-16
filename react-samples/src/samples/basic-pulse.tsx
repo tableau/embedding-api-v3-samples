@@ -1,7 +1,7 @@
-import { TableauAuthoringViz } from '@tableau/embedding-api-react';
+import { TableauPulse } from '@tableau/embedding-api-react';
 import { useEffect, useState } from 'react';
 
-export default function AuthoringViz() {
+export default function BasicPulse() {
   const [jwt, setJwt] = useState('');
 
   // Use your preferred method for asynchronously retrieving the JWT from your backend
@@ -28,13 +28,9 @@ export default function AuthoringViz() {
   return !jwt ? (
     <p>Retrieving JWT...</p>
   ) : (
-    <TableauAuthoringViz
-      src="https://10ax.online.tableau.com/#/site/{your_site}/views/Superstore/Overview"
+    <TableauPulse
       token={jwt}
-      // The version check is disabled so these samples can run against Tableau Public even when
-      // the version of Tableau is incompatible with this version of the Embedding API.
-      // It is recommended to remove the 'disableVersionCheck' prop in your own web applications.
-      disableVersionCheck
+      src="https://10ax.online.tableau.com/pulse/site/{your_site}/metrics/{your_metric_id}"
     />
   );
 }
