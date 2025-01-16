@@ -13,6 +13,7 @@ import SelectMarks from './samples/select-marks';
 import Template from './samples/template';
 import UserEvents from './samples/user-events';
 import VizParameters from './samples/viz-parameters';
+import VizParametersInline from './samples/viz-parameters-inline';
 
 const routes = [
   {
@@ -74,6 +75,11 @@ const routes = [
     title: 'Viz parameters',
     path: '/viz-parameters',
     element: <VizParameters />,
+  },
+  {
+    title: 'Inline viz parameters',
+    path: '/inline-viz-parameters',
+    element: <VizParametersInline />,
   },
 ];
 
