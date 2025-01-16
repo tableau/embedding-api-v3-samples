@@ -11,6 +11,7 @@ import EventListenersInline from './samples/event-listeners-inline';
 import GetData from './samples/get-data';
 import GetDataTableReader from './samples/get-data-table-reader';
 import PulseEvents from './samples/pulse-events';
+import PulseThemes from './samples/pulse-themes';
 import ResizeViz from './samples/resize-viz';
 import SelectMarks from './samples/select-marks';
 import Template from './samples/template';
@@ -98,6 +99,11 @@ const routes = [
     title: 'Pulse Events',
     path: '/pulse-events',
     element: <PulseEvents />,
+  },
+  {
+    title: 'Pulse Themes',
+    path: '/pulse-themes',
+    element: <PulseThemes />,
   },
 ];
 
