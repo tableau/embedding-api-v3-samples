@@ -12,6 +12,7 @@ import ResizeViz from './samples/resize-viz';
 import SelectMarks from './samples/select-marks';
 import Template from './samples/template';
 import UserEvents from './samples/user-events';
+import VizParameters from './samples/viz-parameters';
 
 const routes = [
   {
@@ -68,6 +69,11 @@ const routes = [
     title: 'User events',
     path: '/user-events',
     element: <UserEvents />,
+  },
+  {
+    title: 'Viz parameters',
+    path: '/viz-parameters',
+    element: <VizParameters />,
   },
 ];
 
