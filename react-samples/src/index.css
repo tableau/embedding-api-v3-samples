@@ -37,3 +37,10 @@ a:active {
   width: 1600px;
   height: 1200px;
 }
+
+input,
+select,
+button {
+  font-size: 1rem;
+  padding: 0.25rem;
+}
