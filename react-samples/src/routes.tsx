@@ -1,5 +1,6 @@
 import { NavLink, Route } from 'react-router';
 
+import AuthoringViz from './samples/authoring-viz';
 import BasicEmbedding from './samples/basic-embedding';
 import BasicFiltering from './samples/basic-filtering';
 import CustomContextMenu from './samples/custom-context-menu';
@@ -80,6 +81,11 @@ const routes = [
     title: 'Inline viz parameters',
     path: '/inline-viz-parameters',
     element: <VizParametersInline />,
+  },
+  {
+    title: 'Embedded Web Authoring',
+    path: '/authoring-viz',
+    element: <AuthoringViz />,
   },
 ];
 

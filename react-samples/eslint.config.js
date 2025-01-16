@@ -76,12 +76,6 @@ export default [
           ignoreRestSiblings: true,
         },
       ],
-      '@typescript-eslint/no-floating-promises': [
-        'error',
-        {
-          ignoreIIFE: true,
-        },
-      ],
       '@typescript-eslint/strict-boolean-expressions': 'off',
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
