@@ -6,6 +6,7 @@ import {
   useTableauPulseFirstInteractiveCallback,
   useTableauPulseFirstMetricSizeKnownCallback,
   useTableauPulseInsightDiscoveredCallback,
+  useTableauPulseMetricSizeChangedCallback,
   useTableauPulseTimeDimensionChangedCallback,
   useTableauPulseUrlChangedCallback,
 } from '@tableau/embedding-api-react';
@@ -43,6 +44,17 @@ export default function PulseEvents() {
     const { detail, target: pulse } = event;
 
     console.log('onFirstPulseMetricSizeKnown');
+    console.log('width', detail.width);
+    console.log('height', detail.height);
+
+    pulse.iframe.style.width = `${detail.width}px`;
+    pulse.iframe.style.height = `${detail.height}px`;
+  }, []);
+
+  const onPulseMetricSizeChanged = useTableauPulseMetricSizeChangedCallback((event) => {
+    const { detail, target: pulse } = event;
+
+    console.log('onPulseMetricSizeChanged');
     console.log('width', detail.width);
     console.log('height', detail.height);
 
@@ -103,6 +115,7 @@ export default function PulseEvents() {
       src="https://10ax.online.tableau.com/pulse/site/{your_site}/metrics/{your_metric_id}"
       onFirstInteractive={onPulseFirstInteractive}
       onFirstPulseMetricSizeKnown={onFirstPulseMetricSizeKnown}
+      onPulseMetricSizeChanged={onPulseMetricSizeChanged}
       onPulseError={onPulseError}
       onPulseFiltersChanged={onPulseFiltersChanged}
       onPulseInsightDiscovered={onPulseInsightDiscovered}
